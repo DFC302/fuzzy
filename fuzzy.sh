@@ -151,7 +151,7 @@ while getopts "d:D:w:W:s:h" opt ; do
             echo -e "\t-D\tDomain file with list of domains."
             echo -e "\t-w\tPath(s) to search. MultipleEx: \"login.html login.php test/\""
             echo -e "\t-W\tWordlist file."
-            echo -e "\t-s\tParse results by status codes."
+            echo -e "\t-s\tParse results by status codes. MultipleEx: \"200 403\""
             echo ""
 
             exit 0
@@ -184,7 +184,7 @@ while getopts "d:D:w:W:s:h" opt ; do
             echo -e "\t-D\tDomain file with list of domains."
             echo -e "\t-w\tPath(s) to search. MultipleEx: \"login.html login.php test/\""
             echo -e "\t-W\tWordlist file."
-            echo -e "\t-s\tParse results by status codes."
+            echo -e "\t-s\tParse results by status codes. MultipleEx: \"200 403\""
             echo ""
 
             exit 1
