@@ -13,7 +13,7 @@ function fuzzDomainsFile() {
                         if [[ ${statuscodes} ]] ; then
                             for status in ${statuscodes} ; do
                                 if [[ ${status} -eq ${statusCode} ]] ; then
-                                    echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                                    echo -e "${domain//FUZZ/$line}\t${statusCode}"
                                 fi
                             done
                         else
@@ -43,7 +43,7 @@ function fuzzDomainsFile() {
                         if [[ ${statuscodes} ]] ; then
                             for status in ${statuscodes} ; do
                                 if [[ ${status} -eq ${statusCode} ]] ; then
-                                    echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                                    echo -e "${domain//FUZZ/$line}\t${statusCode}"
                                 fi
                             done
                         else
@@ -84,11 +84,11 @@ function fuzzDomains() {
                         if [[ ${statuscodes} ]] ; then
                             for status in ${statuscodes} ; do
                                 if [[ ${status} -eq ${statusCode} ]] ; then
-                                    echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                                    echo -e "${domain//FUZZ/$line}\t${statusCode}"
                                 fi
                             done
                         else
-                            echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                            echo -e "${domain//FUZZ/$line}\t${statusCode}"
 
                         fi
 
@@ -114,12 +114,12 @@ function fuzzDomains() {
                         if [[ ${statuscodes} ]] ; then
                             for status in ${statuscodes} ; do
                                 if [[ ${status} -eq ${statusCode} ]] ; then
-                                    echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                                    echo -e "${domain//FUZZ/$line}\t${statusCode}"
                                 fi
                             done
 
                         else
-                            echo -e "${domain/FUZZ/$line}\t${statusCode}"
+                            echo -e "${domain//FUZZ/$line}\t${statusCode}"
                         fi
 
                     elif [[ ${domain} != *"FUZZ" ]] ; then
