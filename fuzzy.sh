@@ -91,7 +91,7 @@ function fuzzDomains() {
                             echo -e "${domain/FUZZ/$line}\t${statusCode}"
 
                         fi
-                    
+
                     elif [[ ${domain} != *"FUZZ" ]] ; then
                         statusCode=$( curl -I -k -L ${domain}/${line} -s -o /dev/null -w "%{http_code}" )
                         if [[ ${statuscodes} ]] ; then
@@ -117,11 +117,11 @@ function fuzzDomains() {
                                     echo -e "${domain/FUZZ/$line}\t${statusCode}"
                                 fi
                             done
-    
+
                         else
                             echo -e "${domain/FUZZ/$line}\t${statusCode}"
                         fi
-                    
+
                     elif [[ ${domain} != *"FUZZ" ]] ; then
                         statusCode=$( curl -I -k -L ${domain}/${line} -s -o /dev/null -w "%{http_code}" )
                         if [[ ${statuscodes} ]] ; then
@@ -149,7 +149,7 @@ while getopts "d:D:w:W:s:h" opt ; do
             echo -e "\t-h\tPrint this help menu and exit."
             echo -e "\t-d\tDomain(s) to scan. MultipleEx: \"https://example.com https://example2.com\""
             echo -e "\t-D\tDomain file with list of domains."
-            echo -e "\t-w\tPath(s) to search or fuzz. MultipleEx: \"login.html login.php test/\""
+            echo -e "\t-w\tPath(s) to search. MultipleEx: \"login.html login.php test/\""
             echo -e "\t-W\tWordlist file."
             echo -e "\t-s\tParse results by status codes."
             echo ""
@@ -175,6 +175,21 @@ while getopts "d:D:w:W:s:h" opt ; do
             statuscodes+=( "$OPTARG" )
             ;;
 
+        *)
+            echo ""
+            echo "[ ERROR ] There was an error in your syntax."
+            echo ""
+            echo -e "\t-h\tPrint this help menu and exit."
+            echo -e "\t-d\tDomain(s) to scan. MultipleEx: \"https://example.com https://example2.com\""
+            echo -e "\t-D\tDomain file with list of domains."
+            echo -e "\t-w\tPath(s) to search. MultipleEx: \"login.html login.php test/\""
+            echo -e "\t-W\tWordlist file."
+            echo -e "\t-s\tParse results by status codes."
+            echo ""
+
+            exit 1
+            ;;
+
     esac
 done
 
@@ -182,32 +197,11 @@ shift $((OPTIND -1))
 
 function main() {
 
-    if [[ ${domains} && ${domainsFile} ]] ; then
-        echo ""
-        echo "[ ERROR ] Please use either -d (parse domain(s)) or -D (parse domain(s) from file)"
-        echo ""
-
-        exit 1
-    
-    elif [[ ${domains} ]] ; then
+    if [[ ${domains} ]] ; then
         fuzzDomains
 
     elif [[ ${domainsFile} ]] ; then
         fuzzDomainsFile
-
-    else
-        echo ""
-        echo "[ ERROR ] There was an error in your syntax."
-        echo ""
-        echo -e "\t-h\tPrint this help menu and exit."
-        echo -e "\t-d\tDomain(s) to scan. MultipleEx: \"https://example.com https://example2.com\""
-        echo -e "\t-D\tDomain file with list of domains."
-        echo -e "\t-w\tPath(s) to search or fuzz. MultipleEx: \"login.html login.php test/\""
-        echo -e "\t-W\tWordlist file."
-        echo -e "\t-s\tParse results by status codes."
-        echo ""
-
-        exit 1
 
     fi
 }
